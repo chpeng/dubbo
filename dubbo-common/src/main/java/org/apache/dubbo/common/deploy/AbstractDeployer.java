@@ -104,6 +104,7 @@ public abstract class AbstractDeployer<E extends ScopeModel> implements Deployer
     }
 
     protected void setStarting() {
+        // 设置正在启动中
         this.state = STARTING;
         for (DeployListener<E> listener : listeners) {
             try {

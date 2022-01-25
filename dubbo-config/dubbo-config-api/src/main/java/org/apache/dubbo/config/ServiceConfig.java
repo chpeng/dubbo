@@ -215,6 +215,7 @@ public class ServiceConfig<T> extends ServiceConfigBase<T> {
         }
 
         // ensure start module, compatible with old api usage
+        //  DefaultModuleDeployer
         getScopeModel().getDeployer().start();
 
         synchronized (this) {
@@ -374,6 +375,8 @@ public class ServiceConfig<T> extends ServiceConfigBase<T> {
             getScopeModel(),
             serviceMetadata);
 
+
+        // 注册
         repository.registerProvider(providerModel);
 
         List<URL> registryURLs = ConfigValidationUtils.loadRegistries(this, true);

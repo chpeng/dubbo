@@ -100,6 +100,9 @@ public abstract class AbstractMethodConfig extends AbstractConfig {
     protected Integer forks;
 
     public AbstractMethodConfig() {
+
+        // 初始化 ModuleModel
+
         super(ApplicationModel.defaultModel().getDefaultModule());
     }
 

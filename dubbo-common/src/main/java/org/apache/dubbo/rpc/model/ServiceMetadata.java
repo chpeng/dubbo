@@ -30,9 +30,12 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ServiceMetadata extends BaseServiceMetadata {
 
+    // 服务默认分组
     private String defaultGroup;
+    // 服务类型
     private Class<?> serviceType;
 
+    // 代理类
     private Object target;
 
     /**

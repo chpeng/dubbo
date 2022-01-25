@@ -165,6 +165,7 @@ public class FrameworkModel extends ScopeModel {
      */
     public static FrameworkModel defaultModel() {
         FrameworkModel instance = defaultInstance;
+        // 单里模式
         if (instance == null) {
             synchronized (globalLock) {
                 resetDefaultFrameworkModel();

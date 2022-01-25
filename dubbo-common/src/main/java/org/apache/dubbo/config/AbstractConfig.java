@@ -109,6 +109,8 @@ public abstract class AbstractConfig implements Serializable {
     protected ScopeModel scopeModel;
 
     public AbstractConfig() {
+        //  scopeModel 通过 ApplicationModel.defaultModel() 进行初始化， FrameworkModel.defaultModel().defaultApplication();
+        // 初始化applicationModel
         this(ApplicationModel.defaultModel());
     }
 
@@ -565,6 +567,7 @@ public abstract class AbstractConfig implements Serializable {
         refreshed.set(true);
         try {
             // check and init before do refresh
+            // 在刷新之前执行，校验和初始化
             preProcessRefresh();
 
             Environment environment = getScopeModel().getModelEnvironment();
@@ -869,6 +872,7 @@ public abstract class AbstractConfig implements Serializable {
     }
 
     protected ConfigManager getConfigManager() {
+        // getApplicationModel,初始化scopModel
         return getApplicationModel().getApplicationConfigManager();
     }
 }

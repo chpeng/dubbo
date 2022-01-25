@@ -168,6 +168,7 @@ public class DefaultApplicationDeployer extends AbstractDeployer<ApplicationMode
      */
     @Override
     public void initialize() {
+
         if (initialized.get()) {
             return;
         }
@@ -177,12 +178,16 @@ public class DefaultApplicationDeployer extends AbstractDeployer<ApplicationMode
                 return;
             }
             // register shutdown hook
+            // 注册shutdownhook
             registerShutdownHook();
 
+            // 启动配置中心
             startConfigCenter();
 
+            // 加载 ApplicationConfig
             loadApplicationConfigs();
 
+            // 初始化moduleDeployers
             initModuleDeployers();
 
             // @since 2.7.8

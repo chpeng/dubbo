@@ -57,6 +57,7 @@ public class ModuleModel extends ScopeModel {
             LOGGER.info(getDesc() + " is created");
         }
 
+        // 调用初始化方法
         initialize();
         Assert.notNull(serviceRepository, "ModuleServiceRepository can not be null");
         Assert.notNull(moduleConfigManager, "ModuleConfigManager can not be null");

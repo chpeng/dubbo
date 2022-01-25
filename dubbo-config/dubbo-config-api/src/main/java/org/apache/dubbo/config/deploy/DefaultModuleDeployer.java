@@ -132,13 +132,17 @@ public class DefaultModuleDeployer extends AbstractDeployer<ModuleModel> impleme
                 return startFuture;
             }
 
+            // module启动之前
             onModuleStarting();
 
             // initialize
+            // applicationDeploer 初始化应用
             applicationDeployer.initialize();
+            // modeldeploer 初始化接口
             initialize();
 
             // export services
+            // 暴露服务
             exportServices();
 
         // prepare application instance
@@ -238,9 +242,12 @@ public class DefaultModuleDeployer extends AbstractDeployer<ModuleModel> impleme
     }
 
     private void onModuleStarting() {
+        // 设置状态
         setStarting();
+        // 创建CompletableFuture
         startFuture = new CompletableFuture();
         logger.info(getIdentifier() + " is starting.");
+        // 通知启动
         applicationDeployer.notifyModuleChanged(moduleModel, DeployState.STARTING);
     }
 
@@ -306,13 +313,16 @@ public class DefaultModuleDeployer extends AbstractDeployer<ModuleModel> impleme
     }
 
     private void exportServices() {
+        // 获取所有的额server
         for (ServiceConfigBase sc : configManager.getServices()) {
+            // 暴露内部服务
             exportServiceInternal(sc);
         }
     }
 
     private void exportServiceInternal(ServiceConfigBase sc) {
         ServiceConfig<?> serviceConfig = (ServiceConfig<?>) sc;
+        // 如果服务没有刷新，则进行刷新
         if (!serviceConfig.isRefreshed()) {
             serviceConfig.refresh();
         }

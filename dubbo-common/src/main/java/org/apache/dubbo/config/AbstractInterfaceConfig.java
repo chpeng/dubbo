@@ -641,6 +641,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
     public void setApplication(ApplicationConfig application) {
         this.application = application;
         if (application != null) {
+            //
             getConfigManager().setApplication(application);
         }
     }

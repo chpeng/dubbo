@@ -29,6 +29,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class Application {
     public static void main(String[] args) throws Exception {
+        // 经典启动方式
         if (isClassic(args)) {
             startWithExport();
         } else {
@@ -55,12 +56,17 @@ public class Application {
     }
 
     private static void startWithExport() throws InterruptedException {
+        // 初始化 ServiceConfig
         ServiceConfig<DemoServiceImpl> service = new ServiceConfig<>();
+        // 设置接口
         service.setInterface(DemoService.class);
+        // 设置实现类
         service.setRef(new DemoServiceImpl());
+        // 设置应用名称叫 dubbo-demo-api-provider，初始化scopeModel
         service.setApplication(new ApplicationConfig("dubbo-demo-api-provider"));
         service.setRegistry(new RegistryConfig("zookeeper://127.0.0.1:2181"));
         service.setMetadataReportConfig(new MetadataReportConfig("zookeeper://127.0.0.1:2181"));
+        // 暴露服务
         service.export();
 
         System.out.println("dubbo service started");

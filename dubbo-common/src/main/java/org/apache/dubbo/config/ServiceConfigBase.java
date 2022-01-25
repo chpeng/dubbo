@@ -51,27 +51,27 @@ public abstract class ServiceConfigBase<T> extends AbstractServiceConfig {
 
 
     /**
-     * The interface class of the exported service
+     * The interface class of the exported service 暴露的接口类型
      */
     protected Class<?> interfaceClass;
 
     /**
-     * The reference of the interface implementation
+     * The reference of the interface implementation 实现类
      */
     protected T ref;
 
     /**
-     * The service name
+     * The service name 服务的路径
      */
     protected String path;
 
     /**
-     * The provider configuration
+     * The provider configuration 服务的provider配置
      */
     protected ProviderConfig provider;
 
     /**
-     * The providerIds
+     * The providerIds 当前服务的provider的id
      */
     protected String providerIds;
 
@@ -82,7 +82,9 @@ public abstract class ServiceConfigBase<T> extends AbstractServiceConfig {
 
 
     public ServiceConfigBase() {
+        // 创建servicemetadata
         serviceMetadata = new ServiceMetadata();
+        // 设置属性ORIGIN_CONFIG（原始配置）
         serviceMetadata.addAttribute("ORIGIN_CONFIG", this);
     }
 
@@ -334,12 +336,17 @@ public abstract class ServiceConfigBase<T> extends AbstractServiceConfig {
 
 
     public void setInterface(Class<?> interfaceClass) {
+        // 如果interfaceClass不为空，且不是接口类型 就报错
         if (interfaceClass != null && !interfaceClass.isInterface()) {
             throw new IllegalStateException("The interface class " + interfaceClass + " is not a interface!");
         }
+        // 将传统的接口类型复制给成员变量
         this.interfaceClass = interfaceClass;
+        // 调用父类的方法是指接口名称
         setInterface(interfaceClass == null ? null : interfaceClass.getName());
+        // 获取接口类加载器
         if (getInterfaceClassLoader() == null) {
+            // 将当前接口的classloader设置为成员变量
             setInterfaceClassLoader(interfaceClass == null ? null : interfaceClass.getClassLoader());
         }
     }

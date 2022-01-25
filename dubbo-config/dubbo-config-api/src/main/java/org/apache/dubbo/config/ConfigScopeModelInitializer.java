@@ -48,7 +48,7 @@ public class ConfigScopeModelInitializer implements ScopeModelInitializer {
     @Override
     public void initializeModuleModel(ModuleModel moduleModel) {
         ScopeBeanFactory beanFactory = moduleModel.getBeanFactory();
-        // moduleDeployer
+        // moduleDeployer,创建
         ModuleDeployer moduleDeployer = beanFactory.registerBean(DefaultModuleDeployer.class);
         moduleModel.setDeployer(moduleDeployer);
     }

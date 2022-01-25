@@ -27,10 +27,15 @@ import static org.apache.dubbo.common.constants.CommonConstants.DEFAULT_VERSION;
 public class BaseServiceMetadata {
     public static final char COLON_SEPARATOR = ':';
 
+    // 服务的唯一的key
     protected String serviceKey;
+    // 接口名称
     protected String serviceInterfaceName;
+    // 服务接口版本号
     protected String version;
+    // 服务所在的组
     protected volatile String group;
+    // 服务model
     private ServiceModel serviceModel;
 
     public static String buildServiceKey(String path, String group, String version) {
