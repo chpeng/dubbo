@@ -566,6 +566,7 @@ public class ServiceConfig<T> extends ServiceConfigBase<T> {
 
             // export to local if the config is not remote (export to remote only when config is remote)
             if (!SCOPE_REMOTE.equalsIgnoreCase(scope)) {
+                // 暴露服务
                 exportLocal(url);
             }
 
@@ -633,11 +634,14 @@ public class ServiceConfig<T> extends ServiceConfigBase<T> {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private void doExportUrl(URL url, boolean withMetaData) {
+        // 代理类
         Invoker<?> invoker = proxyFactory.getInvoker(ref, (Class) interfaceClass, url);
         if (withMetaData) {
             invoker = new DelegateProviderMetaDataInvoker(invoker, this);
         }
         Exporter<?> exporter = protocolSPI.export(invoker);
+
+        // 添加到缓存中
         exporters.add(exporter);
     }
 
@@ -653,6 +657,8 @@ public class ServiceConfig<T> extends ServiceConfigBase<T> {
                 .build();
         local = local.setScopeModel(getScopeModel())
             .setServiceModel(providerModel);
+
+        // 暴露服务
         doExportUrl(local, false);
         logger.info("Export dubbo service " + interfaceClass.getName() + " to local registry url : " + local);
     }

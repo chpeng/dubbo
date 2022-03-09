@@ -256,14 +256,15 @@ public class ReferenceConfig<T> extends ReferenceConfigBase<T> {
         }
 
         // init serviceMetadata
+        // 初始化元数据信息
         initServiceMetadata(consumer);
 
         serviceMetadata.setServiceType(getServiceInterfaceClass());
-        // TODO, uncomment this line once service key is unified
+        // TODO, uncomment this line once service key is unified，接口的key
         serviceMetadata.setServiceKey(URL.buildKey(interfaceName, group, version));
 
         Map<String, String> referenceParameters = appendConfig();
-        // init service-application mapping
+        // init service-application mapping 初始化 server映射
         initServiceAppsMapping(referenceParameters);
 
         ModuleServiceRepository repository = getScopeModel().getServiceRepository();
@@ -271,6 +272,7 @@ public class ReferenceConfig<T> extends ReferenceConfigBase<T> {
         consumerModel = new ConsumerModel(serviceMetadata.getServiceKey(), proxy, serviceDescriptor, this,
             getScopeModel(), serviceMetadata, createAsyncMethodInfo());
 
+        // 注册消费折
         repository.registerConsumer(consumerModel);
 
         serviceMetadata.getAttachments().putAll(referenceParameters);

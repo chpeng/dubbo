@@ -55,6 +55,7 @@ import static org.apache.dubbo.remoting.Constants.CHECK_KEY;
 
 /**
  * RegistryDirectory
+ * 注册的类
  */
 public abstract class DynamicDirectory<T> extends AbstractDirectory<T> implements NotifyListener {
 

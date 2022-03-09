@@ -108,6 +108,8 @@ public class DubboProtocol extends AbstractProtocol {
 
     private AtomicBoolean destroyed = new AtomicBoolean();
 
+
+
     private ExchangeHandler requestHandler = new ExchangeHandlerAdapter() {
 
         @Override
@@ -166,6 +168,7 @@ public class DubboProtocol extends AbstractProtocol {
 
         @Override
         public void connected(Channel channel) throws RemotingException {
+            // 连接netty
             invoke(channel, ON_CONNECT_KEY);
         }
 
@@ -290,6 +293,7 @@ public class DubboProtocol extends AbstractProtocol {
 
     @Override
     public <T> Exporter<T> export(Invoker<T> invoker) throws RpcException {
+
         checkDestroyed();
         URL url = invoker.getUrl();
 
@@ -329,6 +333,7 @@ public class DubboProtocol extends AbstractProtocol {
                 synchronized (this) {
                     server = serverMap.get(key);
                     if (server == null) {
+                        // 创建服务
                         serverMap.put(key, createServer(url));
                     }else {
                         server.reset(url);
@@ -347,6 +352,12 @@ public class DubboProtocol extends AbstractProtocol {
         }
     }
 
+
+    /**
+     * 创建服务
+     * @param url
+     * @return
+     */
     private ProtocolServer createServer(URL url) {
         url = URLBuilder.from(url)
                 // send readonly event when server closes, it's enabled by default
@@ -361,8 +372,10 @@ public class DubboProtocol extends AbstractProtocol {
             throw new RpcException("Unsupported server type: " + str + ", url: " + url);
         }
 
+        // 创建 ExchangeServer 组件
         ExchangeServer server;
         try {
+            // 绑定url
             server = Exchangers.bind(url, requestHandler);
         } catch (RemotingException e) {
             throw new RpcException("Fail to start server(url: " + url + ") " + e.getMessage(), e);

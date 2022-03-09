@@ -29,7 +29,7 @@ public interface Channel extends Endpoint {
 
     /**
      * get remote address.
-     *
+     *z
      * @return remote address.
      */
     InetSocketAddress getRemoteAddress();
